@@ -23,11 +23,16 @@ var opts = {
   // optionals
   reactify: true,
   sass: true,
-  sassDir: 'sass'
+  sassDir: 'sass',
+  sourcemaps: true
 };
 
 if(opts.reactify)
   var reactify = require('reactify');
+if(opts.sass)
+  var sass = require('gulp-sass');
+if(opts.sourcemaps)
+  var sourcemaps = require('gulp-sourcemaps');
 
 gulp.task('scripts', function() {
   var bundler = watchify(browserify(path.join(__dirname, opts.src, opts.browserifyIndexFile), watchify.args));
@@ -45,6 +50,25 @@ gulp.task('scripts', function() {
   }
 
   return rebundle();
+});
+
+gulp.task('styles', function() {
+  gulp.src(path.join(__dirname, opts.src, opts.cssDir, '**', '*.css'))
+    .pipe(gulp.dest(path.join(__dirname, opts.dist, opts.cssDir)));
+
+  if(sass) {
+    if(!sourcemaps) {
+      gulp.src(path.join(__dirname, opts.src, opts.sassDir, '*.scss'))
+        .pipe(sass())
+        .pipe(gulp.dest(path.join(__dirname, opts.dist, opts.cssDir)));
+    }else {
+      gulp.src(path.join(__dirname, opts.src, opts.sassDir, '*.scss'))
+        .pipe(sourcemaps.init())
+          .pipe(sass())
+        .pipe(sourcemaps.write())
+        .pipe(path.join(__dirname, opts.dist, opts.cssDir));
+    }
+  }
 });
 
 gulp.task('html', function() {
