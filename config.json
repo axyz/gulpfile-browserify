@@ -1,0 +1,15 @@
+{
+  "opts": {
+    "src": "src",
+    "dist": "dist",
+    "htmlDir": "html",
+    "imgDir": "img",
+    "cssDir": "css",
+    "jsonDir": "json",
+    "fontDir": "font",
+    "browserifyIndexFile": "index.jsx",
+    "reactify": true,
+    "sassDir": "sass",
+    "sourcemaps": true
+  }
+}

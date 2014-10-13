@@ -9,14 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp-util": "^3.0.1",
-    "vinyl-source-stream": "^1.0.0",
+    "browser-sync": "^1.5.8",
     "browserify": "^6.0.3",
-    "watchify": "^2.0.0",
+    "gulp": "^3.8.8",
+    "gulp-changed": "^1.0.0",
+    "gulp-sass": "^1.1.0",
+    "gulp-sourcemaps": "^1.2.4",
+    "gulp-util": "^3.0.1",
+    "path": "^0.4.9",
     "react": "^0.11.2",
     "reactify": "^0.14.0",
-    "gulp": "^3.8.8",
-    "path": "^0.4.9",
-    "browser-sync": "^1.5.8"
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.0.0"
   }
 }
