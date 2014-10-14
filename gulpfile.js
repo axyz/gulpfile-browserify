@@ -4,6 +4,7 @@ var reload = browserSync.reload;
 var path = require('path');
 var changed = require('gulp-changed');
 var gutil = require('gulp-util');
+var del = require('del');
 var source = require('vinyl-source-stream');
 var watchify = require('watchify');
 var browserify = require('browserify');
@@ -70,6 +71,10 @@ gulp.task('html', function() {
     .pipe(gulp.dest(path.join(__dirname, opts.dist)));
 });
 
+gulp.task('clean', function(done) {
+  del([path.join(__dirname, opts.dist)], done);
+});
+
 gulp.task('browser-sync', ['build'], function() {
   browserSync({
     server: {
@@ -78,11 +83,11 @@ gulp.task('browser-sync', ['build'], function() {
   });
 });
 
-gulp.task('watch', ['build', 'browser-sync'], function() {
+gulp.task('watch', ['clean', 'build', 'browser-sync'], function() {
   gulp.watch(path.join(__dirname, opts.src, opts.htmlDir, '**', '*.html'), ['html', reload]);
   gulp.watch(path.join(__dirname, opts.src, opts.sassDir, '**', '*.scss'), ['styles']);
   gulp.watch(path.join(__dirname, opts.src, '**', '*.jsx'), ['watch-scripts']);
 });
 
-gulp.task('build', ['scripts', 'styles', 'html']);
-gulp.task('default', ['watch']);
+gulp.task('build', ['clean', 'scripts', 'styles', 'html']);
+gulp.task('default', ['clean', 'watch']);
